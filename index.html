@@ -1,0 +1,595 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Explorers Hub - Fun Learning for Ages 4-7</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #81C784;
+            --accent-color: #FFD166;
+            --text-color: #333;
+            --light-bg: #f0f9ff;
+            --white: #ffffff;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            padding: 20px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+        
+        .logo {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: var(--secondary-color);
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            margin: 5px;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            background-color: #66BB6A;
+        }
+        
+        /* Main Content Sections */
+        .section {
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+        
+        /* Activity Cards */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .activity-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            padding: 20px;
+            min-height: 200px;
+        }
+        
+        .activity-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .activity-card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            object-fit: contain;
+        }
+        
+        /* Counting Activity */
+        .counting-container {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .number-display {
+            font-size: clamp(3rem, 10vw, 5rem);
+            color: #FF6B6B;
+            margin: 20px;
+            font-weight: bold;
+        }
+        
+        .counting-objects {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px;
+            gap: 10px;
+        }
+        
+        .counting-object {
+            width: 60px;
+            height: 60px;
+            background-color: #4ECDC4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .counting-object:hover {
+            transform: scale(1.1);
+        }
+        
+        .controls {
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        button {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-family: inherit;
+        }
+        
+        button:hover {
+            background-color: #FFB347;
+        }
+        
+        /* Alphabet Section */
+        .alphabet-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .letter-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .letter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            background-color: #E3F2FD;
+        }
+        
+        .letter {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .letter-word {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .activities-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .alphabet-container {
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            }
+            
+            nav a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .activities-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .alphabet-container {
+                grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            }
+            
+            .counting-object {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Little Explorers Hub</div>
+        <p class="tagline">Where learning is an adventure!</p>
+    </header>
+    
+    <nav>
+        <a href="#home" class="active">Home</a>
+        <a href="#alphabet">ABCs</a>
+        <a href="#numbers">123s</a>
+        <a href="#shapes">Shapes</a>
+        <a href="#colors">Colors</a>
+        <a href="#stories">Stories</a>
+    </nav>
+    
+    <!-- Home Section -->
+    <section id="home" class="section">
+        <h2 class="section-title">Welcome Little Explorers!</h2>
+        <div class="activities-grid">
+            <div class="activity-card" onclick="scrollToSection('alphabet')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2698/2698231.png" alt="Alphabet">
+                <h3>ABC Adventure</h3>
+            </div>
+            
+            <div class="activity-card" onclick="scrollToSection('numbers')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="Numbers">
+                <h3>Counting Fun</h3>
+            </div>
+            
+            <div class="activity-card" onclick="scrollToSection('shapes')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2913/2913100.png" alt="Shapes">
+                <h3>Shape Safari</h3>
+            </div>
+            
+            <div class="activity-card" onclick="scrollToSection('colors')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2913/2913122.png" alt="Colors">
+                <h3>Color World</h3>
+            </div>
+            
+            <div class="activity-card" onclick="scrollToSection('stories')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2491/2491052.png" alt="Stories">
+                <h3>Story Time</h3>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Alphabet Section -->
+    <section id="alphabet" class="section">
+        <h2 class="section-title">ABC Adventure</h2>
+        <p style="text-align: center; margin-bottom: 20px;">Click on any letter to hear its sound!</p>
+        
+        <div class="alphabet-container" id="alphabetContainer">
+            <!-- Letters will be added by JavaScript -->
+        </div>
+    </section>
+    
+    <!-- Numbers Section -->
+    <section id="numbers" class="section">
+        <h2 class="section-title">Counting Fun!</h2>
+        
+        <div class="counting-container">
+            <div class="number-display" id="currentNumber">0</div>
+            
+            <div class="counting-objects" id="objectsContainer">
+                <!-- Objects will be added by JavaScript -->
+            </div>
+            
+            <div class="controls">
+                <button onclick="changeNumber(-1)">Less</button>
+                <button onclick="changeNumber(1)">More</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Shapes Section -->
+    <section id="shapes" class="section">
+        <h2 class="section-title">Shape Safari</h2>
+        <div class="activities-grid">
+            <div class="activity-card" onclick="speakShape('circle')">
+                <img src="https://cdn-icons-png.flaticon.com/512/6364/6364595.png">
+                <h3>Circle</h3>
+            </div>
+            
+            <div class="activity-card" onclick="speakShape('mango')">
+                <img src="https://cdn-icons-png.flaticon.com/512/6364/6364489.png" alt="Mango">
+                <h3>Mango</h3>
+            </div>
+            
+            <div class="activity-card" onclick="speakShape('triangle')">
+                <img src="https://cdn-icons-png.flaticon.com/512/6364/6364597.png" alt="Triangle">
+                <h3>Triangle</h3>
+            </div>
+            
+            <div class="activity-card" onclick="speakShape('house')">
+                <img src="https://cdn-icons-png.flaticon.com/512/6364/6364594.png" alt="House">
+                <h3>House</h3>
+            </div>
+            
+            <div class="activity-card" onclick="speakShape('eye')">
+                <img src="https://cdn-icons-png.flaticon.com/512/6364/6364593.png" alt="Eye">
+                <h3>Eye</h3>
+            </div>
+            
+            <div class="activity-card" onclick="speakShape('papaya')">
+                <img src="https://cdn-icons-png.flaticon.com/512/6364/6364596.png" alt="Papaya">
+                <h3>Papaya</h3>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Colors Section -->
+    <section id="colors" class="section">
+        <h2 class="section-title">Color World</h2>
+        <div class="activities-grid">
+            <div class="activity-card" onclick="speakColor('red')" style="background-color: #FF6B6B; color: white;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2913/2913183.png" alt="Red">
+                <h3>Red</h3>
+            </div>
+            
+            <div class="activity-card" onclick="speakColor('blue')" style="background-color: #4ECDC4; color: white;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2913/2913183.png" alt="Blue">
+                <h3>Blue</h3>
+            </div>
+            
+            <div class="activity-card" onclick="speakColor('yellow')" style="background-color: #FFD166; color: #333;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2913/2913183.png" alt="Yellow">
+                <h3>Yellow</h3>
+            </div>
+            
+            <div class="activity-card" onclick="speakColor('green')" style="background-color: #4CAF50; color: white;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2913/2913183.png" alt="Green">
+                <h3>Green</h3>
+            </div>
+            
+            <div class="activity-card" onclick="speakColor('purple')" style="background-color: #9C27B0; color: white;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2913/2913183.png" alt="Purple">
+                <h3>Purple</h3>
+            </div>
+            
+            <div class="activity-card" onclick="speakColor('orange')" style="background-color: #FF9800; color: white;">
+                <img src="https://cdn-icons-png.flaticon.com/512/2913/2913183.png" alt="Orange">
+                <h3>Orange</h3>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stories Section -->
+    <section id="stories" class="section">
+        <h2 class="section-title">Story Time</h2>
+        <div class="activities-grid">
+            <div class="activity-card" onclick="startStory('threePigs')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2491/2491055.png" alt="Three Little Pigs">
+                <h3>Three Little Pigs</h3>
+            </div>
+            
+            <div class="activity-card" onclick="startStory('tortoise')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2491/2491055.png" alt="Tortoise and Hare">
+                <h3>Tortoise and Hare</h3>
+            </div>
+            
+            <div class="activity-card" onclick="startStory('lion')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2491/2491055.png" alt="Lion and Mouse">
+                <h3>Lion and Mouse</h3>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>© 2023 Little Explorers Hub | Designed for preschoolers | Parental guidance recommended</p>
+    </footer>
+    
+    <script>
+        // Navigation highlighting
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('nav a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Helper function to scroll to sections
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // Alphabet Section
+        const alphabetContainer = document.getElementById('alphabetContainer');
+        const alphabet = [
+            { letter: 'A', word: 'Apple' },
+            { letter: 'B', word: 'Ball' },
+            { letter: 'C', word: 'Cat' },
+            { letter: 'D', word: 'Dog' },
+            { letter: 'E', word: 'Elephant' },
+            { letter: 'F', word: 'Fish' },
+            { letter: 'G', word: 'Giraffe' },
+            { letter: 'H', word: 'House' },
+            { letter: 'I', word: 'Ice Cream' },
+            { letter: 'J', word: 'Jelly' },
+            { letter: 'K', word: 'Kite' },
+            { letter: 'L', word: 'Lion' },
+            { letter: 'M', word: 'Monkey' },
+            { letter: 'N', word: 'Nest' },
+            { letter: 'O', word: 'Orange' },
+            { letter: 'P', word: 'Pig' },
+            { letter: 'Q', word: 'Queen' },
+            { letter: 'R', word: 'Rainbow' },
+            { letter: 'S', word: 'Sun' },
+            { letter: 'T', word: 'Tree' },
+            { letter: 'U', word: 'Umbrella' },
+            { letter: 'V', word: 'Violin' },
+            { letter: 'W', word: 'Watermelon' },
+            { letter: 'X', word: 'Xylophone' },
+            { letter: 'Y', word: 'Yacht' },
+            { letter: 'Z', word: 'Zebra' }
+        ];
+        
+        alphabet.forEach(item => {
+            const letterCard = document.createElement('div');
+            letterCard.className = 'letter-card';
+            letterCard.innerHTML = `
+                <div class="letter">${item.letter}</div>
+                <div class="letter-word">${item.word}</div>
+            `;
+            letterCard.addEventListener('click', () => {
+                speakLetter(item.letter);
+            });
+            alphabetContainer.appendChild(letterCard);
+        });
+        
+        function speakLetter(letter) {
+            const utterance = new SpeechSynthesisUtterance(letter);
+            utterance.rate = 0.8;
+            speechSynthesis.speak(utterance);
+        }
+        
+        // Counting Section
+        let currentNumber = 0;
+        const objectsContainer = document.getElementById('objectsContainer');
+        const numberDisplay = document.getElementById('currentNumber');
+        
+        function updateDisplay() {
+            numberDisplay.textContent = currentNumber;
+            objectsContainer.innerHTML = '';
+            
+            for (let i = 0; i < currentNumber; i++) {
+                const object = document.createElement('div');
+                object.className = 'counting-object';
+                object.textContent = i+1;
+                objectsContainer.appendChild(object);
+            }
+            
+            // Speak the number
+            const utterance = new SpeechSynthesisUtterance(currentNumber.toString());
+            utterance.rate = 0.8;
+            speechSynthesis.speak(utterance);
+        }
+        
+        function changeNumber(change) {
+            const newNumber = currentNumber + change;
+            if (newNumber >= 0 && newNumber <= 10) {
+                currentNumber = newNumber;
+                updateDisplay();
+            }
+        }
+        
+        updateDisplay();
+        
+        // Shapes Section
+        function speakShape(shape) {
+            const utterance = new SpeechSynthesisUtterance(shape);
+            utterance.rate = 0.8;
+            speechSynthesis.speak(utterance);
+        }
+        
+        // Colors Section
+        function speakColor(color) {
+            const utterance = new SpeechSynthesisUtterance(color);
+            utterance.rate = 0.8;
+            speechSynthesis.speak(utterance);
+        }
+        
+        // Stories Section
+        function startStory(story) {
+            let storyText = '';
+            
+            switch(story) {
+                case 'threePigs':
+                    storyText = "Once upon a time, there were three little pigs...";
+                    break;
+                case 'tortoise':
+                    storyText = "Once there was a fast hare and a slow tortoise...";
+                    break;
+                case 'lion':
+                    storyText = "A mighty lion was sleeping in the jungle...";
+                    break;
+                default:
+                    storyText = "Let me tell you a wonderful story!";
+            }
+            
+            const utterance = new SpeechSynthesisUtterance(storyText);
+            utterance.rate = 0.7;
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+</html>
+```
